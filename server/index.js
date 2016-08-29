@@ -10,7 +10,7 @@ app.set('port', (process.env.PORT || 8000));
 
 if (!production) {
   // start client webpack
-  const config = require(path.join(baseDir, 'webpack.client.config'));
+  const config = require('../webpack.client.config');
   const webpack = require('webpack');
   const compiler = webpack(config);
 
