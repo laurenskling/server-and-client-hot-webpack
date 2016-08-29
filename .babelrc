@@ -1,0 +1,13 @@
+{
+  "presets": ["es2015", "stage-1", "react"],
+  "plugins": [
+    ["resolver", {
+      "resolveDirs": ["src"]
+    }]
+  ],
+  "env": {
+    "frontend-dev": {
+      "plugins": ["react-hot-loader/babel"]
+    }
+  }
+}
