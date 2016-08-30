@@ -21,6 +21,8 @@ const index = template(
 );
 
 export default (req, res, initialState={}) => {
+  console.log('getting page', req.url);
+
   // https://github.com/reactjs/react-router/blob/master/docs/guides/ServerRendering.md
   match({ routes, location: req.url }, (error, redirectLocation, renderProps) => {
     if (error) {

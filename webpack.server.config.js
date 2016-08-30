@@ -28,7 +28,7 @@ const config = {
       'webpack/hot/poll?1000',
     ])
     .concat([
-      './preprocessor.js',
+      './server/index.js',
     ])
     .filter(x => !!x),
 
@@ -73,12 +73,18 @@ const config = {
           HOST: JSON.stringify(HOST),
           PORT: JSON.stringify(PORT),
         },
+        __DEVELOPMENT__: false,
+        __DEVTOOLS__: false,
       }),
       new webpack.optimize.UglifyJsPlugin({
         compress: { warnings: false },
       }),
     ])
     .concat(!isProduction && [
+      new webpack.DefinePlugin({
+        __DEVELOPMENT__: true,
+        __DEVTOOLS__: false,
+      }),
       new webpack.BannerPlugin(
         'require("source-map-support").install();',
         { raw: true, entryOnly: false }
@@ -92,7 +98,7 @@ const config = {
     	{
     		test: /\.js?$/,
     		exclude: /(node_modules|bower_components)/,
-    		loaders: ['babel'],
+        loaders: isProduction ? ['babel'] : ['express-hot', 'babel'],
     	},
     ],
   },
