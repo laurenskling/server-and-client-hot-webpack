@@ -21,7 +21,7 @@ const index = template(
 );
 
 export default (req, res, initialState={}) => {
-  console.log('getting page', req.url);
+  console.log('getting the page: ', req.url);
 
   // https://github.com/reactjs/react-router/blob/master/docs/guides/ServerRendering.md
   match({ routes, location: req.url }, (error, redirectLocation, renderProps) => {
@@ -42,7 +42,6 @@ const render = (req, res, renderProps, initialState={}) => {
   const store = makeStore(memoryHistory, initialState);
   const history = syncHistoryWithStore(memoryHistory, store);
 
-  const head = Helmet.rewind();
   const component = renderToString(
     <Provider store={store}>
       <RouterContext
@@ -53,6 +52,7 @@ const render = (req, res, renderProps, initialState={}) => {
         />
     </Provider>
   );
+  const head = Helmet.rewind();
 
   res.status(200).send(index({
     head: head,
